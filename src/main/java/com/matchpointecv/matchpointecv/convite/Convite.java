@@ -29,7 +29,7 @@ public class Convite {
     @JoinColumn(name = "destinatario_id", referencedColumnName = "id")
     private Usuario destinatario;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "jogo_id", referencedColumnName = "id")
     private Jogo jogo;
 

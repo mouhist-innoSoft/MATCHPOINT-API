@@ -1,6 +1,7 @@
 package com.matchpointecv.matchpointecv.pontuacao;
 
 
+import com.matchpointecv.matchpointecv.jogo.Jogo;
 import com.matchpointecv.matchpointecv.usuario.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +26,7 @@ public class Pontuacao {
 
     @OneToOne
     @JoinColumn(name = "jogo_id", referencedColumnName = "id")
-    private Integer jogoId;
+    private Jogo jogoId;
 
     @Column(name = "pontos")
     private Integer pontos;

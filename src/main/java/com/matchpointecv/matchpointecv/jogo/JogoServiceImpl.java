@@ -3,6 +3,8 @@ package com.matchpointecv.matchpointecv.jogo;
 import com.matchpointecv.matchpointecv.exception.RecordNotFoundException;
 import com.matchpointecv.matchpointecv.usuario.Usuario;
 import com.matchpointecv.matchpointecv.usuario.UsuarioService;
+
+import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -44,5 +46,9 @@ public class JogoServiceImpl implements JogoService{
 
         }
         return null;
+    }
+
+    public List<JogoDTO> getAllByIds(List<Long> ids) {
+        return repository.findAllByIdIn(ids);
     }
 }

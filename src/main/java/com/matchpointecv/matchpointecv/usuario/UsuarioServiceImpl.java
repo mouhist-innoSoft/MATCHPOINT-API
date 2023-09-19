@@ -29,6 +29,11 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
     @Override
+    public List<UsuarioDTO> getAllByIds(List<Long> ids) {
+        return repository.findAllByIdIn(ids);
+    }
+
+    @Override
     public UsuarioDTO save(UsuarioDTO usuarioDTO) {
         Usuario usuario = new Usuario();
         usuario.setId(usuarioDTO.getId());

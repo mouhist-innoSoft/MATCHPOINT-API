@@ -8,6 +8,8 @@ public interface UsuarioService {
 
     List<Usuario> getAll();
 
+    List<UsuarioDTO> getAllByIds(List<Long> ids);
+
     UsuarioDTO save(UsuarioDTO usuarioDTO);
 
 }

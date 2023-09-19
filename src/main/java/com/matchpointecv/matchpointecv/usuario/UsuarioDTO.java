@@ -1,7 +1,9 @@
 package com.matchpointecv.matchpointecv.usuario;
 
-import java.util.Date;
 import lombok.Data;
+
+import java.util.Date;
+import java.util.Set;
 
 @Data
 public class UsuarioDTO {
@@ -15,4 +17,8 @@ public class UsuarioDTO {
     private String senha;
 
     private Date dataNascimento;
+
+    private Set<Long> jogosIds;
+
+    private Set<Long> timesIds;
 }

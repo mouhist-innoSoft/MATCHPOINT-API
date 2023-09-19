@@ -6,9 +6,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -26,7 +31,14 @@ public class Time {
     @JoinColumn(name = "capitao_id", referencedColumnName = "id")
     private Usuario capitao;
 
-    @OneToOne
-    @JoinColumn(name = "jogo_id", referencedColumnName = "id")
-    private Jogo jogo;
+    @ManyToMany
+    @JoinTable(
+            name = "time_integrantes",
+            joinColumns = @JoinColumn(name = "time_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_id")
+    )
+    private List<Usuario> integrantes;
+
+    @ManyToMany(mappedBy = "times")
+    private List<Jogo> jogos;
 }

@@ -6,6 +6,8 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -32,5 +34,13 @@ public class Jogo {
     @ManyToOne
     @JoinColumn(name = "criador_id", referencedColumnName = "id")
     private Usuario criadorId;
+
+    @ManyToMany
+    @JoinTable(
+            name = "jogo_usuarios",
+            joinColumns = @JoinColumn(name = "jogo_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_id")
+    )
+    private List<Usuario> usuarios;
 
 }

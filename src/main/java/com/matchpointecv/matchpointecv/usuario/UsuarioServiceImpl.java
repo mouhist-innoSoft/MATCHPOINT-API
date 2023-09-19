@@ -1,12 +1,11 @@
 package com.matchpointecv.matchpointecv.usuario;
 
+import com.matchpointecv.matchpointecv.exception.RecordNotFoundException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -19,8 +18,9 @@ public class UsuarioServiceImpl implements UsuarioService{
     private ModelMapper modelMapper;
 
     @Override
-    public Optional<Usuario> getById(Long id) {
-        return repository.findById(id);
+    public Usuario getById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("Usuário", id));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         usuario.setSenha(usuarioDTO.getSenha());
         usuario.setDataNascimento(usuarioDTO.getDataNascimento());
 
-       return modelMapper.map(repository.save(usuario), UsuarioDTO.class) ;
+       return modelMapper.map(repository.save(usuario), UsuarioDTO.class);
     }
 
 }

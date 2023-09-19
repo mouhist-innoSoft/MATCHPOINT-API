@@ -9,5 +9,6 @@ public interface UsuarioService {
 
     List<Usuario> getAll();
 
-    Usuario save(Usuario usuario);
+    UsuarioDTO save(UsuarioDTO usuarioDTO);
+
 }

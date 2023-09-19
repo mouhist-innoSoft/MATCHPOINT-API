@@ -3,7 +3,6 @@ package com.matchpointecv.matchpointecv.usuario;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,8 +35,8 @@ public class UsuarioController {
 
     @PostMapping
     @Operation(summary = "Criar usuário.")
-    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(usuario));
+    public ResponseEntity<UsuarioDTO> save(@RequestBody UsuarioDTO usuarioDTO) {
+        return ResponseEntity.ok().body(service.save(usuarioDTO));
     }
 
 }

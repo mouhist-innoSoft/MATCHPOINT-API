@@ -1,15 +1,11 @@
 package com.matchpointecv.matchpointecv.jogo;
 
 import com.matchpointecv.matchpointecv.usuario.Usuario;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -17,6 +13,7 @@ import java.time.LocalDate;
 public class Jogo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -24,7 +21,7 @@ public class Jogo {
     private LocalDate data;
 
     @Column(name = "hora")
-    private LocalDate hora;
+    private LocalDateTime hora;
 
     @Column(name = "local")
     private String local;

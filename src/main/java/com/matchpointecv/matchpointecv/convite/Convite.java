@@ -1,5 +1,6 @@
 package com.matchpointecv.matchpointecv.convite;
 
+
 import com.matchpointecv.matchpointecv.jogo.Jogo;
 import com.matchpointecv.matchpointecv.usuario.Usuario;
 import jakarta.persistence.Column;
@@ -20,9 +21,8 @@ public class Convite {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
     @JoinColumn(name = "rementente_id", referencedColumnName = "id")
-    private Usuario remetente;
+    private  Usuario remetente;
 
     @ManyToOne
     @JoinColumn(name = "destinatario_id", referencedColumnName = "id")

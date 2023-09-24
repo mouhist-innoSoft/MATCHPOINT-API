@@ -2,6 +2,7 @@ package com.matchpointecv.matchpointecv.jogo;
 
 import com.matchpointecv.matchpointecv.exception.RecordNotFoundException;
 import com.matchpointecv.matchpointecv.usuario.Usuario;
+import com.matchpointecv.matchpointecv.usuario.UsuarioDTO;
 import com.matchpointecv.matchpointecv.usuario.UsuarioService;
 
 import java.util.List;
@@ -30,16 +31,17 @@ public class JogoServiceImpl implements JogoService{
     }
 
     public JogoDTO save(JogoDTO jogoDTO) {
-        Usuario usuario  =  usuarioService.getById(jogoDTO.getCriadorId());
+        UsuarioDTO usuarioCriadorDTO = usuarioService.getById(jogoDTO.getCriadorId());
+        Usuario usuarioCriador = modelMapper.map(usuarioCriadorDTO, Usuario.class);
 
-        if (Objects.nonNull(usuario)) {
+        if (Objects.nonNull(usuarioCriador)) {
 
             Jogo jogo = new Jogo();
             jogo.setData(jogoDTO.getData());
             jogo.setHora(jogoDTO.getHora());
             jogo.setLocal(jogoDTO.getLocal());
             jogo.setMaxParticipantes(jogoDTO.getMaxParticipantes());
-            jogo.setCriadorId(usuario);
+            jogo.setCriadorId(usuarioCriador);
 
 
            return modelMapper.map(repository.save(jogo), JogoDTO.class);
@@ -49,6 +51,10 @@ public class JogoServiceImpl implements JogoService{
     }
 
     public List<JogoDTO> getAllByIds(List<Long> ids) {
-        return repository.findAllByIdIn(ids);
+        List<Jogo> jogos = repository.findAllByIdIn(ids);
+
+        return jogos.stream()
+                .map(jogo -> modelMapper.map(jogo, JogoDTO.class))
+                .toList();
     }
 }

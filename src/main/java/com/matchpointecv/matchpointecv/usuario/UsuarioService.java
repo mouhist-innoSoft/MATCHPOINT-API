@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface UsuarioService {
 
-    Usuario getById(Long id);
+    UsuarioDTO getById(Long id);
 
     List<Usuario> getAll();
 

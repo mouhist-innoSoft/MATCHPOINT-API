@@ -21,7 +21,7 @@ public class UsuarioController {
 
     @GetMapping("id")
     @Operation(summary = "Buscar usuário pelo id.")
-    public Usuario getById(Long id) {
+    public UsuarioDTO getById(Long id) {
         return service.getById(id);
     }
 

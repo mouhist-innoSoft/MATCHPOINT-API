@@ -1,5 +1,6 @@
 package com.matchpointecv.matchpointecv.jogo;
 
+import com.matchpointecv.matchpointecv.time.Time;
 import com.matchpointecv.matchpointecv.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -43,4 +44,7 @@ public class Jogo {
     )
     private List<Usuario> usuarios;
 
+
+    @ManyToMany(mappedBy = "jogos")
+    private Set<Time> times;
 }

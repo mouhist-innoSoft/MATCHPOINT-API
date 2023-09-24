@@ -9,10 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import java.util.Date;
-import java.util.Set;
-
 import lombok.Data;
+
+import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -37,8 +37,8 @@ public class Usuario {
     private Date dataNascimento;
 
     @ManyToMany(mappedBy = "usuarios")
-    private Set<Jogo> jogos;
+    private List<Jogo> jogos;
 
     @ManyToMany(mappedBy = "integrantes")
-    private Set<Time> times;
+    private List<Time> times;
 }

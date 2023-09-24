@@ -1,10 +1,8 @@
 package com.matchpointecv.matchpointecv.time;
 
-import com.matchpointecv.matchpointecv.usuario.Usuario;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Set;
 
 @Data
 public class TimeDTO {
@@ -13,7 +11,7 @@ public class TimeDTO {
 
     private String nome;
 
-    private Usuario capitao;
+    private Long capitao;
 
     private List<Long> integrantes;
 

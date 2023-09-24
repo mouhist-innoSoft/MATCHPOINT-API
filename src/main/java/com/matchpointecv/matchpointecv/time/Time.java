@@ -43,7 +43,7 @@ public class Time {
 
     @ManyToMany
     @JoinTable(
-            name = "time_integrantes",
+            name = "time_jogos",
             joinColumns = @JoinColumn(name = "time_id"),
             inverseJoinColumns = @JoinColumn(name = "jogo_id")
     )

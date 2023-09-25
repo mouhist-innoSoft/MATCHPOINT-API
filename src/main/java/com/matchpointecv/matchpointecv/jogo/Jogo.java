@@ -51,7 +51,9 @@ public class Jogo {
     )
     private List<Usuario> participantes;
 
-
     @ManyToMany(mappedBy = "jogos")
     private List<Time> times;
+
+    @ManyToMany(mappedBy = "jogos")
+    private List<Usuario> usuarios;
 }

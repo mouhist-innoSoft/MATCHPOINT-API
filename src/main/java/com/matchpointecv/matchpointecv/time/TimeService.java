@@ -6,5 +6,7 @@ public interface TimeService {
 
     List<TimeDTO> getAll();
 
+    List<TimeDTO> getAllByIds(List<Long> ids);
+
     TimeDTO save(TimeDTO timeDTO);
 }

@@ -1,6 +1,12 @@
 package com.matchpointecv.matchpointecv.usuario;
 
 import com.matchpointecv.matchpointecv.exception.RecordNotFoundException;
+import com.matchpointecv.matchpointecv.jogo.Jogo;
+import com.matchpointecv.matchpointecv.jogo.JogoDTO;
+import com.matchpointecv.matchpointecv.jogo.JogoService;
+import com.matchpointecv.matchpointecv.time.Time;
+import com.matchpointecv.matchpointecv.time.TimeDTO;
+import com.matchpointecv.matchpointecv.time.TimeService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +20,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     @Autowired
     private UsuarioRepository repository;
-
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private JogoService jogoService;
+    @Autowired
+    private TimeService timeService;
 
     @Override
     public UsuarioDTO getById(Long id) {
@@ -48,6 +57,26 @@ public class UsuarioServiceImpl implements UsuarioService{
         usuario.setEmail(usuarioDTO.getEmail());
         usuario.setSenha(usuarioDTO.getSenha());
         usuario.setDataNascimento(usuarioDTO.getDataNascimento());
+
+        List<Long> jogosIds = usuarioDTO.getJogosIds();
+        if (!jogosIds.isEmpty()) {
+            List<JogoDTO> jogosDTOs = jogoService.getAllByIds(jogosIds);
+            List<Jogo> jogos = jogosDTOs.stream()
+                    .map(jogoDTO -> modelMapper.map(jogoDTO, Jogo.class))
+                    .toList();
+            usuario.setJogos(jogos);
+        }
+
+
+        List<Long> timesIds = usuarioDTO.getTimesIds();
+        if (!timesIds.isEmpty()) {
+            List<TimeDTO> timesDtos = timeService.getAllByIds(timesIds);
+            List<Time> times = timesDtos.stream()
+                    .map(timeDTO -> modelMapper.map(timeDTO, Time.class))
+                    .toList();
+            usuario.setTimes(times);
+        }
+
 
        return modelMapper.map(repository.save(usuario), UsuarioDTO.class);
     }

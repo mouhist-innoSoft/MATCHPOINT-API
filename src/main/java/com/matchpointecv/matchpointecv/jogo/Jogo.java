@@ -2,13 +2,20 @@ package com.matchpointecv.matchpointecv.jogo;
 
 import com.matchpointecv.matchpointecv.time.Time;
 import com.matchpointecv.matchpointecv.usuario.Usuario;
-import jakarta.persistence.*;
-import lombok.Data;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
+import lombok.Data;
 
 @Data
 @Entity
@@ -42,9 +49,9 @@ public class Jogo {
             joinColumns = @JoinColumn(name = "jogo_id"),
             inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
-    private List<Usuario> usuarios;
+    private List<Usuario> participantes;
 
 
     @ManyToMany(mappedBy = "jogos")
-    private Set<Time> times;
+    private List<Time> times;
 }

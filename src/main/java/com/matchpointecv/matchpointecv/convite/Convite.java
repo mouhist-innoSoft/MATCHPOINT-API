@@ -9,13 +9,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
-
-import java.util.List;
 
 
 @Data
@@ -32,6 +28,9 @@ public class Convite {
     @JoinColumn(name = "rementente_id", referencedColumnName = "id")
     private  Usuario remetente;
 
+    @ManyToOne
+    @JoinColumn(name = "destinatario_id", referencedColumnName = "id")
+    private  Usuario destinatario;
 
     @ManyToOne
     @JoinColumn(name = "jogo_id", referencedColumnName = "id")
@@ -40,12 +39,5 @@ public class Convite {
     @Column(name = "status")
     private String status;
 
-    @ManyToMany
-    @JoinTable(
-            name = "convite_destinatario",
-            joinColumns = @JoinColumn(name = "convite_id"),
-            inverseJoinColumns = @JoinColumn(name = "destinatario_id")
-    )
-    private List<Usuario> destinatarios;
 }
 

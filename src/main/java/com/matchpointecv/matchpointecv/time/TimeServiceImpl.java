@@ -1,8 +1,5 @@
 package com.matchpointecv.matchpointecv.time;
 
-import com.matchpointecv.matchpointecv.jogo.Jogo;
-import com.matchpointecv.matchpointecv.jogo.JogoDTO;
-import com.matchpointecv.matchpointecv.jogo.JogoService;
 import com.matchpointecv.matchpointecv.usuario.Usuario;
 import com.matchpointecv.matchpointecv.usuario.UsuarioDTO;
 import com.matchpointecv.matchpointecv.usuario.UsuarioService;
@@ -19,8 +16,6 @@ public class TimeServiceImpl implements TimeService{
     private TimeRepository repository;
     @Autowired
     private ModelMapper modelMapper;
-    @Autowired
-    private JogoService jogoService;
     @Autowired
     private UsuarioService usuarioService;
 
@@ -56,23 +51,6 @@ public class TimeServiceImpl implements TimeService{
         Usuario usuarioCapitao = modelMapper.map(usuarioCapitaoDTO, Usuario.class);
         time.setCapitao(usuarioCapitao);
 
-        List<Long> integrantesIds = timeDTO.getIntegrantes();
-        if (!integrantesIds.isEmpty()) {
-            List<UsuarioDTO> integrantesDTOs = usuarioService.getAllByIds(integrantesIds);
-            List<Usuario> integrantes = integrantesDTOs.stream()
-                    .map(integranteDto -> modelMapper.map(integranteDto, Usuario.class))
-                    .toList();
-            time.setIntegrantes(integrantes);
-        }
-
-        List<Long> jogosIds = timeDTO.getJogos();
-        if (!jogosIds.isEmpty()) {
-            List<JogoDTO> jogosDTOs = jogoService.getAllByIds(jogosIds);
-            List<Jogo> jogos = jogosDTOs.stream()
-                    .map(jogoDTO -> modelMapper.map(jogoDTO, Jogo.class))
-                    .toList();
-            time.setJogos(jogos);
-        }
 
 
         return modelMapper.map(repository.save(time), TimeDTO.class);

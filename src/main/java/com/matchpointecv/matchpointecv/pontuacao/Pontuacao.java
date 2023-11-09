@@ -24,8 +24,8 @@ public class Pontuacao {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "participante_id")
-    private Usuario usuarioId;
+    @JoinColumn(name = "participante_id", referencedColumnName = "id")
+    private Usuario participanteId;
 
     @OneToOne
     @JoinColumn(name = "jogo_id", referencedColumnName = "id")

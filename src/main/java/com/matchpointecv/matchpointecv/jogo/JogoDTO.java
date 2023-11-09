@@ -1,10 +1,8 @@
 package com.matchpointecv.matchpointecv.jogo;
 
-import lombok.Data;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import lombok.Data;
 
 @Data
 public class JogoDTO {
@@ -15,7 +13,4 @@ public class JogoDTO {
     private String local;
     private Integer maxParticipantes;
     private Long criadorId;
-    private List<Long> participantesIds;
-    private List<Long> timesIds;
-    private List<Long> usuariosIds;
 }

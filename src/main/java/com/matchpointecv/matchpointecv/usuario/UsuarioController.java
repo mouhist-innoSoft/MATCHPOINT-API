@@ -31,7 +31,7 @@ public class UsuarioController {
         return service.getAll();
     }
 
-    @PostMapping
+    @PostMapping("/cadastrar")
     @Operation(summary = "Criar usuário.")
     public ResponseEntity<UsuarioDTO> save(@RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.ok().body(service.save(usuarioDTO));

@@ -3,6 +3,7 @@ package com.matchpointecv.matchpointecv.participante;
 
 
 import com.matchpointecv.matchpointecv.jogo.Jogo;
+import com.matchpointecv.matchpointecv.time.Time;
 import com.matchpointecv.matchpointecv.usuario.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,6 +31,10 @@ public class Participante {
     @OneToOne
     @JoinColumn(name = "jogo_id", referencedColumnName = "id")
     private Jogo jogoId;
+
+    @OneToOne
+    @JoinColumn(name = "time_id", referencedColumnName = "id")
+    private Time timeId;
 
     @Column(name = "posiçao_preferida")
     private Integer posicaoPreferida;

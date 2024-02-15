@@ -1,6 +1,7 @@
 package com.matchpointecv.matchpointecv.filter;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.matchpointecv.matchpointecv.security.TokenUtil;
 import com.matchpointecv.matchpointecv.usuario.Usuario;
 import com.matchpointecv.matchpointecv.usuario.UsuarioRepository;
 import jakarta.servlet.FilterChain;
@@ -12,6 +13,8 @@ import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -40,6 +43,11 @@ public class FilterAuth extends OncePerRequestFilter {
 
         } else {
             String authorization = request.getHeader("Authorization");
+
+            if (authorization != null) {
+                Authentication auth = TokenUtil.validate(request);
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
 
             String authEncoded = authorization.substring("Basic".length()).trim();
 

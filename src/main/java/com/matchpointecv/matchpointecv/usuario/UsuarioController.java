@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,9 @@ public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
-    @GetMapping("id")
+    @GetMapping("/{id}")
     @Operation(summary = "Buscar usuário pelo id.")
-    public UsuarioDTO getById(Long id) {
+    public UsuarioDTO getById(@PathVariable Long id) {
         return service.getById(id);
     }
 

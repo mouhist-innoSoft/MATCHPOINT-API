@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.util.Date;
 import lombok.Data;
 
 @Data
@@ -29,6 +28,9 @@ public class Usuario {
     private String senha;
 
     @Column(name = "data_nascimento")
-    private Date dataNascimento;
+    private String dataNascimento;
+
+    @Column(name = "cpf")
+    private String cpf;
 
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/usuarios")
+@RequestMapping("api/usuario")
 public class UsuarioController {
 
     @Autowired

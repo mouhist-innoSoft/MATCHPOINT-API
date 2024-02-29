@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class UsuarioServiceImpl implements UsuarioService{
+public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private UsuarioRepository repository;
@@ -41,26 +41,27 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     @Override
     public UsuarioDTO save(UsuarioDTO usuarioDTO) {
+        Usuario usrCpf = repository.findByCpf(usuarioDTO.getCpf());
 
-        Usuario usr = repository.findByNome(usuarioDTO.getNome());
+        if (usrCpf == null) {
+            String passwordHashred = BCrypt.withDefaults()
+                    .hashToString(12, usuarioDTO.getSenha().toCharArray());
 
-        if (usr != null) {
-            throw new IllegalArgumentException("Usuário já existe");
+            Usuario usuario = new Usuario();
+            usuario.setId(usuarioDTO.getId());
+            usuario.setNome(usuarioDTO.getNome());
+            usuario.setEmail(usuarioDTO.getEmail());
+            usuario.setSenha(passwordHashred);
+            usuario.setDataNascimento(usuarioDTO.getDataNascimento());
+            usuario.setCpf(usuarioDTO.getCpf());
+
+            Usuario userSaved = repository.save(usuario);
+
+            return modelMapper.map(userSaved, UsuarioDTO.class);
+        } else {
+            throw new IllegalArgumentException("CPF já cadastrado");
         }
 
-        String passwordHashred = BCrypt.withDefaults()
-                .hashToString(12, usuarioDTO.getSenha().toCharArray());
-
-        Usuario usuario = new Usuario();
-        usuario.setId(usuarioDTO.getId());
-        usuario.setNome(usuarioDTO.getNome());
-        usuario.setEmail(usuarioDTO.getEmail());
-        usuario.setSenha(passwordHashred);
-        usuario.setDataNascimento(usuarioDTO.getDataNascimento());
-
-
-
-       return modelMapper.map(repository.save(usuario), UsuarioDTO.class);
     }
 
 }

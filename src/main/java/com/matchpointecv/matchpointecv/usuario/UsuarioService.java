@@ -10,6 +10,6 @@ public interface UsuarioService {
 
     List<UsuarioDTO> getAllByIds(List<Long> ids);
 
-    UsuarioDTO save(UsuarioDTO usuarioDTO);
+    boolean save(UsuarioDTO usuarioDTO);
 
 }

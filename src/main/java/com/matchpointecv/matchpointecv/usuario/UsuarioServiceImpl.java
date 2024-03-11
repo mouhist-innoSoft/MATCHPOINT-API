@@ -56,7 +56,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             usuario.setDataNascimento(usuarioDTO.getDataNascimento());
             usuario.setCpf(usuarioDTO.getCpf());
 
-            return Optional.of(repository.save(usuario)).isPresent() ? true : false;
+            return Optional.of(repository.save(usuario)).isPresent();
         } else {
             throw new IllegalArgumentException("CPF já cadastrado");
         }

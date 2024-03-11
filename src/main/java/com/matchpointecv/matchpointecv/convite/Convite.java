@@ -30,7 +30,7 @@ public class Convite {
 
     @ManyToOne
     @JoinColumn(name = "destinatario_id", referencedColumnName = "id")
-    private Usuario destinatario;
+    private  Usuario destinatario;
 
     @ManyToOne
     @JoinColumn(name = "jogo_id", referencedColumnName = "id")
@@ -38,5 +38,6 @@ public class Convite {
 
     @Column(name = "status")
     private String status;
+
 }
 

@@ -1,11 +1,11 @@
 package com.matchpointecv.matchpointecv.jogo;
 
+import com.matchpointecv.matchpointecv.usuario.UsuarioVisualizarDTO;
 import java.util.List;
 import lombok.Data;
 
 @Data
-public class JogoDTO {
-
+public class JogoVisualizarDTO {
     private Long id;
     private String data;
     private String hora;
@@ -13,5 +13,5 @@ public class JogoDTO {
     private Integer maxParticipantes;
     private Long criadorId;
     private String tipo;
-    private List<Long> idsParticipantes;
+    private List<UsuarioVisualizarDTO> participantes;
 }

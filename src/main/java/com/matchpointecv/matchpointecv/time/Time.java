@@ -1,9 +1,10 @@
 package com.matchpointecv.matchpointecv.time;
 
-import com.matchpointecv.matchpointecv.jogo.Jogo;
 import com.matchpointecv.matchpointecv.usuario.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -16,6 +17,7 @@ import lombok.Data;
 public class Time {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -26,7 +28,4 @@ public class Time {
     @JoinColumn(name = "capitao_id", referencedColumnName = "id")
     private Usuario capitao;
 
-    @OneToOne
-    @JoinColumn(name = "jogo_id", referencedColumnName = "id")
-    private Jogo jogo;
 }

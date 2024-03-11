@@ -4,10 +4,12 @@ import java.util.List;
 
 public interface UsuarioService {
 
-    Usuario getById(Long id);
+    UsuarioDTO getById(Long id);
 
     List<Usuario> getAll();
 
-    UsuarioDTO save(UsuarioDTO usuarioDTO);
+    List<UsuarioVisualizarDTO> getAllByIds(List<Long> ids);
+
+    boolean save(UsuarioDTO usuarioDTO);
 
 }

@@ -1,9 +1,13 @@
 package com.matchpointecv.matchpointecv.jogo;
 
+import com.matchpointecv.matchpointecv.jogo.jogoUsuario.ConfirmarcaoPresencaDTO;
 import io.swagger.v3.oas.annotations.Operation;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +31,19 @@ public class JogoController {
     @Operation(summary = "Criar jogo")
     public JogoDTO save(@RequestBody JogoDTO jogoDTO) {
         return service.save(jogoDTO);
+    }
+
+    @PostMapping("/confirmar-presenca")
+    @Operation(summary = "Confirmar presença no jogo")
+    public ResponseEntity<Boolean> confirmarPresenca(@RequestBody ConfirmarcaoPresencaDTO confirmarcaoPresencaDTO) {
+        boolean confirmacaoPresenca = service.confirmarPresenca(confirmarcaoPresencaDTO);
+        return Optional.ofNullable(confirmacaoPresenca).isPresent() ? ResponseEntity.ok(confirmacaoPresenca)
+                : ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/visualizar/{id}")
+    @Operation(summary = "Visualizar jogo")
+    public JogoVisualizarDTO visualizar(@PathVariable Long id) {
+        return service.visualizar(id);
     }
 }

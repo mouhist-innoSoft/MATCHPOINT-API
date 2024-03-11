@@ -3,15 +3,13 @@ package com.matchpointecv.matchpointecv.usuario;
 import lombok.Data;
 
 @Data
-public class UsuarioDTO {
+public class UsuarioVisualizarDTO {
 
     private Long id;
 
     private String nome;
 
     private String email;
-
-    private String senha;
 
     private String dataNascimento;
 

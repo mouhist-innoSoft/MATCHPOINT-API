@@ -8,7 +8,7 @@ public interface UsuarioService {
 
     List<Usuario> getAll();
 
-    List<UsuarioDTO> getAllByIds(List<Long> ids);
+    List<UsuarioVisualizarDTO> getAllByIds(List<Long> ids);
 
     boolean save(UsuarioDTO usuarioDTO);
 

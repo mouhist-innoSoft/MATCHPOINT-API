@@ -32,11 +32,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public List<UsuarioDTO> getAllByIds(List<Long> ids) {
+    public List<UsuarioVisualizarDTO> getAllByIds(List<Long> ids) {
         List<Usuario> usuarios = repository.findAllByIdIn(ids);
 
         return usuarios.stream()
-                .map(usuario -> modelMapper.map(usuario, UsuarioDTO.class))
+                .map(usuario -> modelMapper.map(usuario, UsuarioVisualizarDTO.class))
                 .toList();
     }
 

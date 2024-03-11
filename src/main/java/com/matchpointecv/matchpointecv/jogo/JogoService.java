@@ -12,4 +12,6 @@ public interface JogoService {
     boolean confirmarPresenca(ConfirmarcaoPresencaDTO confirmarcaoPresencaDTO);
 
     List<JogoDTO> getAllByIds(List<Long> ids);
+
+    JogoVisualizarDTO visualizar(Long id);
 }

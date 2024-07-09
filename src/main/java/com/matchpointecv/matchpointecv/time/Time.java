@@ -1,17 +1,20 @@
-package com.matchpointecv.matchpointecv.usuario;
+package com.matchpointecv.matchpointecv.time;
 
+import com.matchpointecv.matchpointecv.usuario.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "usuario")
-public class Usuario {
+@Table(name = "time")
+public class Time {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,16 +24,8 @@ public class Usuario {
     @Column(name = "nome")
     private String nome;
 
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "senha")
-    private String senha;
-
-    @Column(name = "data_nascimento")
-    private String dataNascimento;
-
-    @Column(name = "cpf")
-    private String cpf;
+    @OneToOne
+    @JoinColumn(name = "capitao_id", referencedColumnName = "id")
+    private Usuario capitao;
 
 }

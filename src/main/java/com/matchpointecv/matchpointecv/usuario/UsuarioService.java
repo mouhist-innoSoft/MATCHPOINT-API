@@ -1,13 +1,15 @@
 package com.matchpointecv.matchpointecv.usuario;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UsuarioService {
 
-    Optional<Usuario> getById(Long id);
+    UsuarioDTO getById(Long id);
 
     List<Usuario> getAll();
 
-    Usuario save(Usuario usuario);
+    List<UsuarioVisualizarDTO> getAllByIds(List<Long> ids);
+
+    boolean save(UsuarioDTO usuarioDTO);
+
 }

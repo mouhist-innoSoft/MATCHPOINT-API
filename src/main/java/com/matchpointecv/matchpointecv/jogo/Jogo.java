@@ -1,15 +1,12 @@
 package com.matchpointecv.matchpointecv.jogo;
 
-import com.matchpointecv.matchpointecv.usuario.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
-
-import java.time.LocalDate;
 
 @Data
 @Entity
@@ -17,14 +14,15 @@ import java.time.LocalDate;
 public class Jogo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @Column(name = "data")
-    private LocalDate data;
+    private String data;
 
     @Column(name = "hora")
-    private LocalDate hora;
+    private String hora;
 
     @Column(name = "local")
     private String local;
@@ -32,8 +30,10 @@ public class Jogo {
     @Column(name = "max_participantes")
     private int maxParticipantes;
 
-    @ManyToOne
-    @JoinColumn(name = "criador_id", referencedColumnName = "id")
-    private Usuario criadorId;
+    @Column(name = "criador_id")
+    private Long criador;
+
+    @Column(name = "tipo")
+    private String tipo;
 
 }

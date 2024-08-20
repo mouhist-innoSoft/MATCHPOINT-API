@@ -1,6 +1,6 @@
 package com.matchpointecv.matchpointecv.jogo;
 
-import com.matchpointecv.matchpointecv.usuario.UsuarioVisualizarDTO;
+import com.matchpointecv.matchpointecv.usuario.dto.UsuarioVisualizarDTO;
 import java.util.List;
 import lombok.Data;
 

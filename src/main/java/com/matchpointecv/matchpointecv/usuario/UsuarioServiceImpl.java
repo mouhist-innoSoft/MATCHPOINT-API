@@ -1,12 +1,27 @@
 package com.matchpointecv.matchpointecv.usuario;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.matchpointecv.matchpointecv.auth.JwtTokenService;
+import com.matchpointecv.matchpointecv.auth.UserDetailsImpl;
+import com.matchpointecv.matchpointecv.auth.dto.CredenciaisDTO;
+import com.matchpointecv.matchpointecv.auth.dto.TokenDTO;
 import com.matchpointecv.matchpointecv.exception.RecordNotFoundException;
+import com.matchpointecv.matchpointecv.role.Role;
+import com.matchpointecv.matchpointecv.role.RoleRepository;
+import com.matchpointecv.matchpointecv.role.enuns.RoleName;
+import com.matchpointecv.matchpointecv.security.SecurityConfig;
+import com.matchpointecv.matchpointecv.usuario.dto.UsuarioDTO;
+import com.matchpointecv.matchpointecv.usuario.dto.UsuarioVisualizarDTO;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -17,6 +32,16 @@ public class UsuarioServiceImpl implements UsuarioService {
     private UsuarioRepository repository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private SecurityConfig securityConfig;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtTokenService jwtTokenService;
 
     @Override
     public UsuarioDTO getById(Long id) {
@@ -56,11 +81,26 @@ public class UsuarioServiceImpl implements UsuarioService {
             usuario.setDataNascimento(usuarioDTO.getDataNascimento());
             usuario.setCpf(usuarioDTO.getCpf());
 
+            Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
+            Set<Role> roles = new HashSet<>();
+            roles.add(userRole);
+            usuario.setRoles(roles);
+
             return Optional.of(repository.save(usuario)).isPresent();
         } else {
             throw new IllegalArgumentException("CPF já cadastrado");
         }
 
+    }
+
+    public TokenDTO autenticarUsuario(CredenciaisDTO credenciaisDTO) {
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                new UsernamePasswordAuthenticationToken(credenciaisDTO.email(), credenciaisDTO.senha());
+
+        Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        UserDetailsImpl modelUserDetails = (UserDetailsImpl) authentication.getPrincipal();
+        return new TokenDTO(jwtTokenService.generateToken(modelUserDetails));
     }
 
 }

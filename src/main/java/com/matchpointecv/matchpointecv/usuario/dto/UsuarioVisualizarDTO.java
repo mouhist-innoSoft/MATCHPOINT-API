@@ -1,4 +1,4 @@
-package com.matchpointecv.matchpointecv.usuario;
+package com.matchpointecv.matchpointecv.usuario.dto;
 
 import lombok.Data;
 

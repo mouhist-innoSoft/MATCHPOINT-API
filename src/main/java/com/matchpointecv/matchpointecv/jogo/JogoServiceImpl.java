@@ -5,7 +5,7 @@ import com.matchpointecv.matchpointecv.jogo.jogoUsuario.ConfirmarcaoPresencaDTO;
 import com.matchpointecv.matchpointecv.jogo.jogoUsuario.JogoUsuario;
 import com.matchpointecv.matchpointecv.jogo.jogoUsuario.JogoUsuarioRepository;
 import com.matchpointecv.matchpointecv.usuario.UsuarioService;
-import com.matchpointecv.matchpointecv.usuario.UsuarioVisualizarDTO;
+import com.matchpointecv.matchpointecv.usuario.dto.UsuarioVisualizarDTO;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;

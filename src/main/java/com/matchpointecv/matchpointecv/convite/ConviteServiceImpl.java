@@ -5,7 +5,7 @@ import com.matchpointecv.matchpointecv.exception.RecordNotFoundException;
 import com.matchpointecv.matchpointecv.jogo.Jogo;
 import com.matchpointecv.matchpointecv.jogo.JogoService;
 import com.matchpointecv.matchpointecv.usuario.Usuario;
-import com.matchpointecv.matchpointecv.usuario.UsuarioDTO;
+import com.matchpointecv.matchpointecv.usuario.dto.UsuarioDTO;
 import com.matchpointecv.matchpointecv.usuario.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

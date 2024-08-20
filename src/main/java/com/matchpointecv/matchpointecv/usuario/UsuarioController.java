@@ -1,5 +1,6 @@
 package com.matchpointecv.matchpointecv.usuario;
 
+import com.matchpointecv.matchpointecv.usuario.dto.UsuarioDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import java.util.Optional;

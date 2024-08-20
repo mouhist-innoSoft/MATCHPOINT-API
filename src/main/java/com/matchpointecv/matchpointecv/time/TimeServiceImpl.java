@@ -1,7 +1,7 @@
 package com.matchpointecv.matchpointecv.time;
 
 import com.matchpointecv.matchpointecv.usuario.Usuario;
-import com.matchpointecv.matchpointecv.usuario.UsuarioDTO;
+import com.matchpointecv.matchpointecv.usuario.dto.UsuarioDTO;
 import com.matchpointecv.matchpointecv.usuario.UsuarioService;
 import java.util.List;
 import java.util.NoSuchElementException;

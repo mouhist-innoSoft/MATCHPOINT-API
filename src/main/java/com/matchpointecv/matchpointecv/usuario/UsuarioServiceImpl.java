@@ -5,6 +5,7 @@ import com.matchpointecv.matchpointecv.auth.JwtTokenService;
 import com.matchpointecv.matchpointecv.auth.UserDetailsImpl;
 import com.matchpointecv.matchpointecv.auth.dto.CredenciaisDTO;
 import com.matchpointecv.matchpointecv.auth.dto.TokenDTO;
+import com.matchpointecv.matchpointecv.exception.CustomException;
 import com.matchpointecv.matchpointecv.exception.RecordNotFoundException;
 import com.matchpointecv.matchpointecv.role.Role;
 import com.matchpointecv.matchpointecv.role.RoleRepository;
@@ -89,7 +90,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
             return Optional.of(repository.save(usuario)).isPresent();
         } else {
-            throw new IllegalArgumentException("CPF já cadastrado");
+            throw new CustomException("CPF já cadastrado");
         }
 
     }

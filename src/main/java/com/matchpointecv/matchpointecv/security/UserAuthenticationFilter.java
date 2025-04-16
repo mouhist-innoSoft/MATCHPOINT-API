@@ -2,6 +2,7 @@ package com.matchpointecv.matchpointecv.security;
 
 import com.matchpointecv.matchpointecv.auth.JwtTokenService;
 import com.matchpointecv.matchpointecv.auth.UserDetailsImpl;
+import com.matchpointecv.matchpointecv.exception.CustomException;
 import com.matchpointecv.matchpointecv.usuario.Usuario;
 import com.matchpointecv.matchpointecv.usuario.UsuarioRepository;
 import jakarta.servlet.FilterChain;
@@ -41,7 +42,7 @@ public class UserAuthenticationFilter extends OncePerRequestFilter{
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {
-                throw new RuntimeException("Token inexistente!");
+                throw new CustomException("Usuário não autenticado!");
             }
         }
         filterChain.doFilter(request, response);

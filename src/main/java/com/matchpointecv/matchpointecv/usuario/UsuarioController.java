@@ -1,5 +1,6 @@
 package com.matchpointecv.matchpointecv.usuario;
 
+import com.matchpointecv.matchpointecv.usuario.dto.CriarUsuarioDTO;
 import com.matchpointecv.matchpointecv.usuario.dto.UsuarioDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
@@ -36,8 +37,8 @@ public class UsuarioController {
 
     @PostMapping("/cadastrar")
     @Operation(summary = "Criar usuário.")
-    public ResponseEntity<Boolean> save(@RequestBody UsuarioDTO usuarioDTO) {
-        boolean usuarioInsert = service.save(usuarioDTO);
+    public ResponseEntity<Boolean> save(@RequestBody CriarUsuarioDTO criarUsuarioDTO) {
+        boolean usuarioInsert = service.save(criarUsuarioDTO);
         return Optional.ofNullable(usuarioInsert).isPresent() ? ResponseEntity.ok(usuarioInsert)
                 : ResponseEntity.noContent().build();
     }

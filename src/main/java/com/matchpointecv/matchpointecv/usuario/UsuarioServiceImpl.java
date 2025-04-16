@@ -11,12 +11,14 @@ import com.matchpointecv.matchpointecv.role.Role;
 import com.matchpointecv.matchpointecv.role.RoleRepository;
 import com.matchpointecv.matchpointecv.role.enuns.RoleName;
 import com.matchpointecv.matchpointecv.security.SecurityConfig;
+import com.matchpointecv.matchpointecv.usuario.dto.CriarUsuarioDTO;
 import com.matchpointecv.matchpointecv.usuario.dto.UsuarioDTO;
 import com.matchpointecv.matchpointecv.usuario.dto.UsuarioVisualizarDTO;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,41 +69,54 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public boolean save(UsuarioDTO usuarioDTO) {
-        Usuario usrCpf = repository.findByCpf(usuarioDTO.getCpf());
+    public boolean save(CriarUsuarioDTO criarUsuarioDTO) {
+        Usuario usrCpf = repository.findByCpf(criarUsuarioDTO.cpf());
 
-        if (usrCpf == null) {
-            String passwordHashred = BCrypt.withDefaults()
-                    .hashToString(12, usuarioDTO.getSenha().toCharArray());
+        Optional<Usuario> usrEmail = repository.findByEmail(criarUsuarioDTO.email());
 
-            Usuario usuario = new Usuario();
-            usuario.setId(usuarioDTO.getId());
-            usuario.setNome(usuarioDTO.getNome());
-            usuario.setEmail(usuarioDTO.getEmail());
-            usuario.setSenha(passwordHashred);
-            usuario.setDataNascimento(usuarioDTO.getDataNascimento());
-            usuario.setCpf(usuarioDTO.getCpf());
-
-            Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
-            Set<Role> roles = new HashSet<>();
-            roles.add(userRole);
-            usuario.setRoles(roles);
-
-            return Optional.of(repository.save(usuario)).isPresent();
-        } else {
+        if (usrCpf != null) {
             throw new CustomException("CPF já cadastrado");
         }
 
+        if (usrEmail.isPresent()) {
+            throw new CustomException("E-mail já cadastrado");
+        }
+
+        String passwordHashred = BCrypt.withDefaults()
+                .hashToString(12, criarUsuarioDTO.password().toCharArray());
+
+        Usuario usuario = new Usuario();
+        usuario.setEmail(criarUsuarioDTO.email());
+        usuario.setSenha(passwordHashred);
+        usuario.setCpf(criarUsuarioDTO.cpf());
+        usuario.setDataNascimento(criarUsuarioDTO.dataNascimento());
+        usuario.setNome(criarUsuarioDTO.nome());
+
+        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+                .orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
+        Set<Role> roles = new HashSet<>();
+        roles.add(userRole);
+        usuario.setRoles(roles);
+
+        return Optional.of(repository.save(usuario)).isPresent();
     }
 
+    @Override
     public TokenDTO autenticarUsuario(CredenciaisDTO credenciaisDTO) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(credenciaisDTO.email(), credenciaisDTO.senha());
 
         Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         UserDetailsImpl modelUserDetails = (UserDetailsImpl) authentication.getPrincipal();
-        return new TokenDTO(jwtTokenService.generateToken(modelUserDetails));
+        String token = jwtTokenService.generateToken(modelUserDetails);
+
+        Usuario usuario = modelUserDetails.getUsuario();
+        UsuarioDTO usuarioDTO = modelMapper.map(usuario, UsuarioDTO.class);
+        usuarioDTO.setRoles(usuario.getRoles().stream()
+                .map(role -> role.getName().name())
+                .collect(Collectors.toSet()));
+
+        return new TokenDTO(token, usuarioDTO);
     }
 
 }

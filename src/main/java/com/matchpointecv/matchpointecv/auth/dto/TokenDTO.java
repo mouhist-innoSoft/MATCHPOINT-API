@@ -1,8 +1,10 @@
 package com.matchpointecv.matchpointecv.auth.dto;
 
-public record TokenDTO(
+import com.matchpointecv.matchpointecv.usuario.dto.UsuarioDTO;
 
-        String token
+public record TokenDTO(
+        String token,
+        UsuarioDTO usuario
 
 ) {
 }

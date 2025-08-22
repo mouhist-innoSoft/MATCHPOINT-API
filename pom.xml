@@ -8,10 +8,10 @@
 		<version>3.1.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.match-pointe-cv</groupId>
-	<artifactId>match-pointe-cv</artifactId>
+	<groupId>com.mind-flow</groupId>
+	<artifactId>mind-flow</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>match-pointe-cv</name>
+	<name>mind-flow</name>
 	<description>Project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
@@ -84,6 +84,10 @@
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
 			<version>4.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
 		</dependency>
 
 	</dependencies>
